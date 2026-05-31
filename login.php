@@ -4,9 +4,12 @@ require_once 'includes/auth.php';
 
 // Jika sudah login, lempar ke dashboard sesuai role
 if (isLoggedIn()) {
-    if ($_SESSION['role'] === 'admin') header("Location: admin.php");
-    elseif ($_SESSION['role'] === 'operator') header("Location: operator.php");
-    else header("Location: dashboard.php");
+    if ($_SESSION['role'] === 'admin')
+        header("Location: admin.php");
+    elseif ($_SESSION['role'] === 'operator')
+        header("Location: operator.php");
+    else
+        header("Location: dashboard.php");
     exit();
 }
 
@@ -32,9 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['tier'] = $user['tier'];
 
             // Redirect sesuai role
-            if ($user['role'] === 'admin') header("Location: admin.php");
-            elseif ($user['role'] === 'operator') header("Location: operator.php");
-            else header("Location: dashboard.php");
+            if ($user['role'] === 'admin')
+                header("Location: admin.php");
+            elseif ($user['role'] === 'operator')
+                header("Location: operator.php");
+            else
+                header("Location: dashboard.php");
             exit();
         } else {
             $error = "Username atau password salah.";
@@ -47,189 +53,61 @@ include 'includes/header.php';
 ?>
 
 <style>
-    body { min-height: 100vh; display: flex; overflow: hidden; }
+    body {
+        min-height: 100vh;
+        display: flex;
+    }
 
-    /* Left Panel */
-    .auth-left-panel {
-        flex: 1.2;
+    .auth-left {
+        flex: 1;
+        background: linear-gradient(135deg, #0f172a 0%, #134e4a 50%, #0d9488 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 48px;
         position: relative;
         overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 60px 48px;
-        background: linear-gradient(135deg, #0f172a 0%, #0d2a28 40%, #0d4a44 70%, #14b8a6 100%);
-    }
-    .auth-left-panel::before {
-        content: '';
-        position: absolute; inset: 0;
-        background: linear-gradient(135deg, #0f172a 0%, #134e4a 50%, #0d9488 100%);
-        z-index: 0;
     }
 
-    /* Animated orbs in left panel */
-    .orb {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(70px);
-        animation: floatBlob 12s ease-in-out infinite alternate;
-    }
-    .orb-1 { width: 350px; height: 350px; background: rgba(20,184,166,0.3); top: -80px; left: -80px; animation-delay: 0s; }
-    .orb-2 { width: 280px; height: 280px; background: rgba(99,102,241,0.25); bottom: -60px; right: -60px; animation-delay: -6s; }
-    .orb-3 { width: 180px; height: 180px; background: rgba(245,158,11,0.15); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -3s; }
-
-    /* Floating grid lines */
-    .grid-lines {
-        position: absolute; inset: 0; z-index: 1;
-        background-image:
-            linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-        background-size: 60px 60px;
+    .auth-left-content {
+        position: relative;
+        z-index: 2;
+        max-width: 400px;
+        text-align: center;
+        color: white;
     }
 
-    /* Feature pills */
-    .feature-pill {
-        display: flex; align-items: center; gap: 14px;
-        background: rgba(255,255,255,0.07);
-        border: 1px solid rgba(255,255,255,0.12);
-        backdrop-filter: blur(10px);
-        padding: 14px 18px;
-        border-radius: 16px;
-        transition: all 0.3s ease;
-    }
-    .feature-pill:hover { background: rgba(255,255,255,0.12); transform: translateX(4px); border-color: rgba(255,255,255,0.2); }
-    .feature-pill-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
-
-    /* Stat ticker */
-    .stat-ticker {
-        display: flex; gap: 24px;
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.1);
-        backdrop-filter: blur(10px);
-        border-radius: 16px;
-        padding: 16px 24px;
-    }
-    .stat-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-
-    /* Right Panel */
-    .auth-right-panel {
+    .auth-right {
         flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 40px 32px;
-        overflow-y: auto;
+        padding: 48px 24px;
         background: var(--surface);
-        position: relative;
-    }
-    .auth-right-panel::before {
-        content: '';
-        position: absolute; inset: 0;
-        background:
-            radial-gradient(ellipse 60% 50% at 80% 20%, rgba(20,184,166,0.08) 0%, transparent 70%),
-            radial-gradient(ellipse 50% 60% at 20% 80%, rgba(99,102,241,0.08) 0%, transparent 70%);
-        pointer-events: none;
     }
 
-    /* ── Floating particles on right panel ── */
-    .particle {
-        position: absolute;
-        border-radius: 50%;
-        pointer-events: none;
-        animation: particleDrift var(--dur, 8s) ease-in-out infinite alternate;
-        opacity: 0;
-        animation-fill-mode: both;
-    }
-    @keyframes particleDrift {
-        0%   { transform: translate(0, 0) scale(1); opacity: 0; }
-        20%  { opacity: var(--op, 0.6); }
-        80%  { opacity: var(--op, 0.6); }
-        100% { transform: translate(var(--dx, 30px), var(--dy, -40px)) scale(1.3); opacity: 0; }
+    .auth-card {
+        width: 100%;
+        max-width: 420px;
     }
 
-    /* ── Animated ring behind the form card ── */
-    .ring {
-        position: absolute;
-        border-radius: 50%;
-        border: 1px solid;
-        animation: ringPulse var(--dur, 4s) ease-in-out infinite;
-        pointer-events: none;
+    @media(max-width:768px) {
+        .auth-left {
+            display: none;
+        }
     }
-    @keyframes ringPulse {
-        0%, 100% { transform: translate(-50%, -50%) scale(1);   opacity: 0.4; }
-        50%       { transform: translate(-50%, -50%) scale(1.12); opacity: 0.08; }
-    }
-
-    /* ── Input shimmer / glow on focus ── */
-    .auth-input {
-        transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
-    }
-    .auth-input:focus {
-        border-color: #14b8a6 !important;
-        box-shadow: 0 0 0 3px rgba(20,184,166,0.15), 0 0 16px rgba(20,184,166,0.1);
-        background: white !important;
-    }
-    .dark .auth-input:focus {
-        background: #1e293b !important;
-        box-shadow: 0 0 0 3px rgba(20,184,166,0.2), 0 0 20px rgba(20,184,166,0.1);
-    }
-
-    /* ── Submit button pulse ── */
-    .btn-login {
-        position: relative;
-        overflow: hidden;
-    }
-    .btn-login::after {
-        content: '';
-        position: absolute;
-        inset: -2px;
-        border-radius: inherit;
-        background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
-        transform: translateX(-100%);
-        animation: btnShimmer 3s ease-in-out infinite;
-    }
-    @keyframes btnShimmer {
-        0%   { transform: translateX(-100%); }
-        50%  { transform: translateX(100%); }
-        100% { transform: translateX(100%); }
-    }
-
-    /* ── Typing cursor on heading ── */
-    .typing-cursor::after {
-        content: '|';
-        display: inline-block;
-        margin-left: 2px;
-        animation: blink 1s step-end infinite;
-        color: #14b8a6;
-    }
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-    /* ── Form card slide-up entry ── */
-    .form-card {
-        animation: slideUpFade 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
-    @keyframes slideUpFade {
-        from { opacity: 0; transform: translateY(32px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 900px) { .auth-left-panel { display: none; } }
 </style>
 
-<!-- ============ LEFT PANEL ============ -->
-<div class="auth-left-panel">
-    <!-- Background elements -->
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="grid-lines"></div>
-
-    <!-- Content -->
-    <div class="relative z-10 max-w-md w-full text-white animate-fade-in">
-        <!-- Logo -->
-        <div class="flex items-center gap-3 mb-12 animate-pop-in stagger-1">
-            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-400 to-teal-600 flex items-center justify-center shadow-lg pulse-glow">
-                <img src="assets/image/logo_desai.png" alt="Logo UMKM Insight" class="w-8 h-8 object-contain drop-shadow-md">
+<div class="auth-left">
+    <div class="auth-left-content">
+        <h2 class="text-3xl font-extrabold mb-4">Analitik Bisnis Powerful</h2>
+        <p class="text-slate-300 mb-8">Pantau kinerja UMKM Anda dengan dashboard interaktif yang terhubung langsung ke
+            SmartBank.</p>
+        <div class="flex flex-col gap-3">
+            <div class="bg-white/10 p-4 rounded-xl text-left flex gap-3 items-center border border-white/10">
+                <i class="ph-fill ph-trend-up text-brand-400 text-xl"></i>
+                <span class="text-sm">Laporan penjualan real-time</span>
             </div>
             <span class="text-xl font-extrabold tracking-tight">UMKM Insight</span>
         </div>
@@ -335,9 +213,10 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <?php if($error): ?>
-            <div class="bg-rose-50 dark:bg-rose-900/50 border border-rose-200 dark:border-rose-800 text-rose-600 dark:text-rose-300 p-3 rounded-xl text-sm mb-6 flex items-center gap-2 animate-pop-in">
-                <i class="ph-fill ph-warning-circle text-lg"></i> <?php echo $error; ?>
+        <?php if ($error): ?>
+            <div
+                class="bg-rose-50 border border-rose-100 text-rose-600 p-3 rounded-lg text-sm mb-6 flex items-center gap-2">
+                <i class="ph ph-warning-circle"></i> <?php echo $error; ?>
             </div>
         <?php endif; ?>
 
@@ -374,43 +253,7 @@ include 'includes/header.php';
         <p class="text-center text-sm text-slate-500 dark:text-slate-400 mt-8 animate-pop-in stagger-5">
             Belum punya akun? <a href="register.php" class="text-brand-600 dark:text-brand-400 font-bold hover:underline">Daftar Gratis →</a>
         </p>
-
-        <div class="mt-6 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50 text-[10px] text-slate-400 leading-relaxed text-center animate-pop-in stagger-6">
-            <strong class="text-slate-500 dark:text-slate-300">DEMO ACCOUNTS:</strong><br>
-            Client: <code>budi</code> / <code>password</code> &nbsp;|&nbsp;
-            client (premium): <code>sari</code> / <code>password</code> &nbsp;|&nbsp;
-            operator: <code>op_jaya</code> / <code>password</code> &nbsp;|&nbsp;
-            Admin: <code>admin_super</code> / <code>password</code> &nbsp;|&nbsp;
-        </div>
     </div>
 </div>
 
-<script>
-// Toggle password visibility
-function togglePw() {
-    const inp = document.getElementById('pw-input');
-    const eye = document.getElementById('pw-eye');
-    inp.type = inp.type === 'password' ? 'text' : 'password';
-    eye.className = inp.type === 'password' ? 'ph ph-eye' : 'ph ph-eye-slash';
-}
-
-// Animate button on submit
-document.querySelector('form').addEventListener('submit', function() {
-    const btn = document.getElementById('login-btn');
-    const icon = document.getElementById('btn-icon');
-    const text = document.getElementById('btn-text');
-    btn.disabled = true;
-    btn.style.opacity = '0.8';
-    icon.className = 'ph ph-circle-notch animate-spin';
-    text.textContent = 'Memverifikasi...';
-});
-
-// Remove typing cursor after 3 seconds
-setTimeout(() => {
-    const h1 = document.querySelector('.typing-cursor');
-    if (h1) h1.classList.remove('typing-cursor');
-}, 3500);
-</script>
-
 <?php include 'includes/footer.php'; ?>
-
