@@ -5,6 +5,9 @@ $activePage = 'landing';
 include 'includes/header.php';
 ?>
 
+<!-- Include AOS for rich scroll animations -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
 <style>
     .landing-nav {
         position: fixed;
@@ -178,12 +181,16 @@ include 'includes/header.php';
 </style>
 
 <nav class="landing-nav" id="landing-nav">
-    <div class="nav-inner">
-        <a href="#" class="brand"><i class="ph-fill ph-chart-polar"></i><span>UMKM Insight</span></a>
-        <div class="nav-links">
-            <a href="#fitur">Fitur</a>
-            <a href="#harga">Harga</a>
-            <a href="login.php" class="btn btn-primary btn-sm">Masuk</a>
+    <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-3 text-white transition-colors duration-300" id="brand-logo">
+            <img src="assets/image/logo_desai.png" alt="Logo UMKM Insight" class="w-8 h-8 object-contain drop-shadow-md">
+            <span class="font-extrabold text-xl tracking-tight">UMKM Insight</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8 font-medium">
+            <a href="#fitur" class="text-white/80 hover:text-white transition-colors">Fitur</a>
+            <a href="#harga" class="text-white/80 hover:text-white transition-colors">Harga</a>
+            <a href="login.php" class="text-white/80 hover:text-white transition-colors">Masuk</a>
+            <a href="register.php" class="bg-white text-slate-900 hover:bg-slate-100 px-6 py-2.5 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">Mulai Gratis</a>
         </div>
     </div>
 </nav>
@@ -237,11 +244,11 @@ include 'includes/header.php';
     </div>
 </section>
 
-<section class="section bg-slate-50" id="harga" style="max-width: 100%;">
-    <div class="max-w-[1200px] mx-auto">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl font-extrabold">Paket Langganan</h2>
-            <p class="text-slate-500 mt-2">Mulai gratis, upgrade kapan saja untuk fitur profesional.</p>
+<section class="py-24 relative" id="harga">
+    <div class="max-w-[1200px] mx-auto px-6">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">Pilih Paket Langganan</h2>
+            <p class="text-lg text-slate-500 max-w-xl mx-auto">Mulai gratis selamanya. Upgrade ke Premium kapan saja saat bisnis Anda membutuhkan fitur yang lebih canggih.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div class="card p-10 flex flex-col">
@@ -258,7 +265,7 @@ include 'includes/header.php';
                     <li class="flex items-center gap-2 text-sm text-slate-300"><i class="ph ph-lock text-slate-300"></i>
                         Export Laporan CSV</li>
                 </ul>
-                <a href="register.php" class="btn btn-outline btn-full py-4 font-bold">Mulai Gratis</a>
+                <a href="register.php" class="btn bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-800 dark:text-white btn-full py-4 rounded-xl font-bold transition-colors">Mulai Gratis</a>
             </div>
             <div class="card p-10 flex flex-col featured border-brand-500">
                 <h3 class="text-xl font-bold text-brand-700">Premium Pro</h3>
@@ -283,7 +290,19 @@ include 'includes/header.php';
     </div>
 </section>
 
-<footer class="bg-slate-900 text-white py-16 px-6 text-center">
+<!-- CTA Section -->
+<section class="py-24 relative overflow-hidden bg-brand-900">
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAzNGwtMTItMTJ2MzZIMjRWMzhMMTIgMjZWNkgwVjRoMTJ2MTRsMTIgMTJWNGg0djI2bDEyLTEyVjRoNHYyNmwxMiAxMkg2MFYzNGgtOHptLTI0LTE4VjRINHYxMmw4IDh6IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz48L2c+PC9zdmc+')] opacity-20"></div>
+    <div class="max-w-[800px] mx-auto px-6 text-center relative z-10" data-aos="zoom-in">
+        <h2 class="text-4xl md:text-5xl font-black text-white mb-6">Siap Mengambil Kendali Bisnis Anda?</h2>
+        <p class="text-brand-100 text-lg mb-10">Bergabung dengan ribuan UMKM yang telah menggunakan data untuk melipatgandakan keuntungan mereka.</p>
+        <a href="register.php" class="inline-block bg-white text-brand-900 font-extrabold px-10 py-5 rounded-2xl text-xl shadow-2xl hover:scale-105 transition-transform duration-300">
+            Mulai Sekarang — Gratis!
+        </a>
+    </div>
+</section>
+
+<footer class="bg-slate-950 text-white py-12 px-6 text-center border-t border-slate-800">
     <div class="flex justify-center gap-8 mb-8 text-sm text-slate-400">
         <a href="#fitur" class="hover:text-white transition-colors">Fitur</a>
         <a href="#harga" class="hover:text-white transition-colors">Harga</a>
@@ -294,9 +313,32 @@ include 'includes/header.php';
         RPL 2.</p>
 </footer>
 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+    // Initialize AOS animations
+    AOS.init({
+        once: true,
+        offset: 100,
+        duration: 800,
+        easing: 'ease-out-cubic'
+    });
+
+    // Navbar Scroll Effect
+    const nav = document.getElementById('landing-nav');
+    const brandText = document.querySelector('#brand-logo span');
+    
     window.addEventListener('scroll', () => {
-        document.getElementById('landing-nav').classList.toggle('scrolled', window.scrollY > 50);
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+            if (!document.documentElement.classList.contains('dark')) {
+                brandText.classList.remove('text-white');
+                brandText.classList.add('text-slate-900');
+            }
+        } else {
+            nav.classList.remove('scrolled');
+            brandText.classList.remove('text-slate-900');
+            brandText.classList.add('text-white');
+        }
     });
 </script>
 
