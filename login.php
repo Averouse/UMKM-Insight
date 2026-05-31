@@ -73,23 +73,99 @@ include 'includes/header.php';
     .auth-left-content {
         position: relative;
         z-index: 2;
-        max-width: 400px;
+        max-width: 440px;
         text-align: center;
         color: white;
     }
 
-    .auth-right {
+    .auth-right-panel {
         flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 48px 24px;
         background: var(--surface);
+        position: relative;
+        overflow: hidden;
     }
 
-    .auth-card {
+    .form-card {
         width: 100%;
-        max-width: 420px;
+        max-width: 400px;
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Floating particles background styles */
+    .particle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        animation: floatParticle var(--dur, 8s) ease-in-out infinite;
+        opacity: var(--op, 0.4);
+    }
+    @keyframes floatParticle {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(var(--dx, 20px), var(--dy, -40px)); }
+    }
+
+    /* Pulsing background rings */
+    .ring {
+        position: absolute;
+        border: 1px solid;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        animation: pulseRing var(--dur, 6s) ease-in-out infinite;
+    }
+    @keyframes pulseRing {
+        0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+        50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.6; }
+    }
+
+    /* Left panel feature pills */
+    .feature-pill {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 12px 16px;
+        border-radius: var(--radius-lg);
+        text-align: left;
+        transition: all var(--transition-fast);
+        margin-bottom: 4px;
+    }
+    .feature-pill:hover {
+        background: rgba(255, 255, 255, 0.12);
+        transform: translateX(4px);
+    }
+    .feature-pill-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.125rem;
+        flex-shrink: 0;
+    }
+
+    /* Bottom stats ticker */
+    .stat-ticker {
+        display: flex;
+        justify-content: space-around;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 16px;
+        border-radius: var(--radius-xl);
+        margin-top: 24px;
+    }
+    .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
     }
 
     @media(max-width:768px) {
@@ -101,17 +177,6 @@ include 'includes/header.php';
 
 <div class="auth-left">
     <div class="auth-left-content">
-        <h2 class="text-3xl font-extrabold mb-4">Analitik Bisnis Powerful</h2>
-        <p class="text-slate-300 mb-8">Pantau kinerja UMKM Anda dengan dashboard interaktif yang terhubung langsung ke
-            SmartBank.</p>
-        <div class="flex flex-col gap-3">
-            <div class="bg-white/10 p-4 rounded-xl text-left flex gap-3 items-center border border-white/10">
-                <i class="ph-fill ph-trend-up text-brand-400 text-xl"></i>
-                <span class="text-sm">Laporan penjualan real-time</span>
-            </div>
-            <span class="text-xl font-extrabold tracking-tight">UMKM Insight</span>
-        </div>
-
         <!-- Headline -->
         <div class="mb-10 animate-pop-in stagger-2">
             <h2 class="text-4xl font-black leading-tight tracking-tight mb-4">
