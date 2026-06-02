@@ -163,7 +163,7 @@ include 'includes/sidebar.php';
 
                 <div class="flex flex-col gap-2 relative z-10 mt-auto">
                     <?php if($isFree): ?>
-                        <a href="landing.php#harga" class="btn bg-brand-600 text-white hover:bg-brand-700 shadow-md transition-all btn-full"><i class="ph-fill ph-crown"></i> Upgrade ke Premium</a>
+                        <a href="langganan.php" class="btn bg-brand-600 text-white hover:bg-brand-700 shadow-md transition-all btn-full"><i class="ph-fill ph-crown"></i> Upgrade ke Premium</a>
                     <?php endif; ?>
                     <a href="pengaduan.php" class="btn bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 border-0 btn-full transition-all shadow-sm">Pusat Bantuan</a>
                 </div>

@@ -198,7 +198,7 @@ include 'includes/sidebar.php';
             </div>
 
             <?php if(!$isPremium): ?>
-                <div class="premium-lock-badge" onclick="window.location.href='landing.php#harga'">
+                <div class="premium-lock-badge" onclick="window.location.href='langganan.php'">
                     <i class="ph-fill ph-crown text-2xl mb-2"></i>
                     <span class="font-bold">Upgrade ke Premium untuk akses Wawasan Lanjutan</span>
                 </div>

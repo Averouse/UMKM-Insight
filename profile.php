@@ -191,7 +191,7 @@ include 'includes/topbar.php';
 
                 <div class="mb-4">
                     <label class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Nama Pemilik / Lengkap</label>
-                    <input type="text" class="form-input bg-slate-100 cursor-not-allowed" value="<?php echo htmlspecialchars($user['nama_lengkap']); ?>" disabled>
+                    <input type="text" class="form-input bg-slate-100 dark:bg-slate-700 dark:text-slate-200 cursor-not-allowed" value="<?php echo htmlspecialchars($user['nama_lengkap']); ?>" disabled>
                     <small class="text-[10px] text-slate-400">Nama lengkap tidak dapat diubah sendiri.</small>
                 </div>
                 
