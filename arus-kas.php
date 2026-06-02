@@ -76,43 +76,43 @@ include 'includes/sidebar.php';
             $netPos = $netCash >= 0; 
             ?>
             <!-- KAS BERSIH -->
-            <div class="glass-card animate-pop-in stagger-3 p-6 bg-gradient-to-br <?php echo $netPos ? 'from-emerald-400 to-teal-600' : 'from-rose-400 to-red-600'; ?> text-white border-0 shadow-lg relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
-                <div class="absolute -right-8 -top-8 w-32 h-32 bg-white rounded-full mix-blend-overlay opacity-20 group-hover:scale-150 transition-transform duration-500"></div>
+            <div class="card animate-pop-in stagger-3 p-6 bg-gradient-to-br <?php echo $netPos ? 'from-emerald-400 to-teal-600 shadow-emerald-500/20' : 'from-rose-400 to-pink-600 shadow-rose-500/20'; ?> text-white border-0 shadow-lg relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full mix-blend-overlay group-hover:scale-150 transition-transform duration-500 ease-out"></div>
                 <div class="flex justify-between items-center mb-4 relative z-10">
                     <span class="text-xs font-bold text-white/80 uppercase tracking-widest">Kas Bersih</span>
-                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20 backdrop-blur-md shadow-inner text-white"><i class="ph-fill ph-scales text-xl"></i></div>
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20 text-white shadow-sm backdrop-blur-sm"><i class="ph-fill ph-scales text-xl"></i></div>
                 </div>
-                <div class="text-3xl font-black tracking-tight relative z-10 drop-shadow-md"><?php echo formatRupiah($netCash); ?></div>
-                <div class="text-[11px] mt-2 font-semibold text-white/90 relative z-10 flex items-center gap-1"><i class="ph-bold <?php echo $netPos ? 'ph-trend-up' : 'ph-trend-down'; ?>"></i> Status: <?php echo $netPos ? 'Surplus' : 'Defisit'; ?></div>
+                <div class="text-3xl font-black text-white tracking-tight relative z-10"><?php echo formatRupiah($netCash); ?></div>
+                <div class="text-[11px] mt-2 font-semibold text-white/80 relative z-10 flex items-center gap-1"><i class="ph-bold <?php echo $netPos ? 'ph-trend-up' : 'ph-trend-down'; ?>"></i> Status: <?php echo $netPos ? 'Surplus' : 'Defisit'; ?></div>
             </div>
 
             <!-- TOTAL MASUK -->
-            <div class="glass-card animate-pop-in stagger-4 p-6 bg-gradient-to-br from-blue-400 to-indigo-600 text-white border-0 shadow-lg shadow-blue-500/20 relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
-                <div class="absolute -right-8 -top-8 w-32 h-32 bg-white rounded-full mix-blend-overlay opacity-20 group-hover:scale-150 transition-transform duration-500"></div>
+            <div class="card animate-pop-in stagger-4 p-6 bg-gradient-to-br from-blue-400 to-indigo-600 text-white border-0 shadow-lg shadow-blue-500/20 relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full mix-blend-overlay group-hover:scale-150 transition-transform duration-500 ease-out"></div>
                 <div class="flex justify-between items-center mb-4 relative z-10">
-                    <span class="text-xs font-bold text-blue-100 uppercase tracking-widest">Total Masuk</span>
-                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20 backdrop-blur-md shadow-inner text-white"><i class="ph-fill ph-arrow-circle-down text-xl"></i></div>
+                    <span class="text-xs font-bold text-white/80 uppercase tracking-widest">Total Masuk</span>
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20 text-white shadow-sm backdrop-blur-sm"><i class="ph-fill ph-arrow-circle-down text-xl"></i></div>
                 </div>
-                <div class="text-3xl font-black tracking-tight relative z-10 drop-shadow-md"><?php echo formatRupiah($totalIn); ?></div>
-                <div class="text-[11px] mt-2 font-semibold text-blue-100 relative z-10 flex items-center gap-1"><i class="ph-bold ph-plus-circle"></i> Kumulatif Pemasukan</div>
+                <div class="text-3xl font-black text-white tracking-tight relative z-10"><?php echo formatRupiah($totalIn); ?></div>
+                <div class="text-[11px] mt-2 font-semibold text-blue-50 relative z-10 flex items-center gap-1"><i class="ph-bold ph-plus-circle"></i> Kumulatif Pemasukan</div>
             </div>
 
             <!-- TOTAL KELUAR -->
-            <div class="glass-card animate-pop-in stagger-5 p-6 bg-gradient-to-br from-amber-400 to-orange-500 text-white border-0 shadow-lg shadow-amber-500/20 relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
-                <div class="absolute -right-8 -top-8 w-32 h-32 bg-white rounded-full mix-blend-overlay opacity-20 group-hover:scale-150 transition-transform duration-500"></div>
+            <div class="card animate-pop-in stagger-5 p-6 bg-gradient-to-br from-amber-400 to-orange-500 text-white border-0 shadow-lg shadow-amber-500/20 relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full mix-blend-overlay group-hover:scale-150 transition-transform duration-500 ease-out"></div>
                 <div class="flex justify-between items-center mb-4 relative z-10">
-                    <span class="text-xs font-bold text-amber-100 uppercase tracking-widest">Total Keluar</span>
-                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20 backdrop-blur-md shadow-inner text-white"><i class="ph-fill ph-arrow-circle-up text-xl"></i></div>
+                    <span class="text-xs font-bold text-white/80 uppercase tracking-widest">Total Keluar</span>
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20 text-white shadow-sm backdrop-blur-sm"><i class="ph-fill ph-arrow-circle-up text-xl"></i></div>
                 </div>
-                <div class="text-3xl font-black tracking-tight relative z-10 drop-shadow-md"><?php echo formatRupiah($totalOut); ?></div>
-                <div class="text-[11px] mt-2 font-semibold text-amber-100 relative z-10 flex items-center gap-1"><i class="ph-bold ph-minus-circle"></i> Kumulatif Pengeluaran</div>
+                <div class="text-3xl font-black text-white tracking-tight relative z-10"><?php echo formatRupiah($totalOut); ?></div>
+                <div class="text-[11px] mt-2 font-semibold text-amber-50 relative z-10 flex items-center gap-1"><i class="ph-bold ph-minus-circle"></i> Kumulatif Pengeluaran</div>
             </div>
         </div>
 
         <!-- Daily Trend (Free) -->
-        <div class="glass-card animate-pop-in stagger-5 p-6 mb-6">
+        <div class="card animate-pop-in stagger-5 p-6 mb-6">
             <h3 class="font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-2">
-                <div class="p-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600"><i class="ph-bold ph-chart-line"></i></div>
+                <div class="p-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400"><i class="ph-bold ph-chart-line"></i></div>
                 Tren Arus Kas Harian (7 Hari Terakhir)
             </h3>
             <div style="height: 320px; position: relative;">
@@ -121,14 +121,14 @@ include 'includes/sidebar.php';
         </div>
 
         <!-- Premium Analysis Section -->
-        <div class="glass-card animate-pop-in stagger-6 p-8 mb-6 relative overflow-hidden <?php echo !$isPremium ? 'premium-locked' : ''; ?>">
+        <div class="card animate-pop-in stagger-6 p-8 mb-6 relative overflow-hidden <?php echo !$isPremium ? 'premium-locked' : ''; ?>">
             <!-- Background Glow -->
             <div class="absolute -left-20 -top-20 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply dark:mix-blend-screen opacity-5 dark:opacity-10 pointer-events-none"></div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 relative z-10 mb-6">
-                <div class="p-5 rounded-2xl bg-white/60 dark:bg-slate-800/60 border border-white/80 dark:border-slate-700/80 backdrop-blur-md hover:bg-white dark:hover:bg-slate-700 transition-colors shadow-sm">
+                <div class="p-5 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/80 backdrop-blur-md hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors shadow-sm">
                     <h3 class="font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-2">
-                        <div class="p-1.5 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600"><i class="ph-bold ph-chart-bar"></i></div>
+                        <div class="p-1.5 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400"><i class="ph-bold ph-chart-bar"></i></div>
                         Perbandingan Kas Bulanan 
                         <span class="badge bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-400 border-indigo-300 dark:border-indigo-700 ml-2 shadow-sm">PRO</span>
                     </h3>
@@ -136,9 +136,9 @@ include 'includes/sidebar.php';
                         <canvas id="chart-cashflow-monthly"></canvas>
                     </div>
                 </div>
-                <div class="p-5 rounded-2xl bg-white/60 dark:bg-slate-800/60 border border-white/80 dark:border-slate-700/80 backdrop-blur-md hover:bg-white dark:hover:bg-slate-700 transition-colors shadow-sm">
+                <div class="p-5 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/80 backdrop-blur-md hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors shadow-sm">
                     <h3 class="font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-2">
-                        <div class="p-1.5 rounded-lg bg-purple-100 dark:bg-purple-900/50 text-purple-600"><i class="ph-bold ph-crystal-ball"></i></div>
+                        <div class="p-1.5 rounded-lg bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400"><i class="ph-bold ph-crystal-ball"></i></div>
                         Proyeksi Saldo Masa Depan 
                         <span class="badge bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-400 border-purple-300 dark:border-purple-700 ml-2 shadow-sm">PRO</span>
                     </h3>
@@ -148,9 +148,9 @@ include 'includes/sidebar.php';
                 </div>
             </div>
 
-            <div class="p-6 rounded-2xl bg-white/60 dark:bg-slate-800/60 border border-white/80 dark:border-slate-700/80 backdrop-blur-md relative z-10 hover:bg-white dark:hover:bg-slate-700 transition-colors shadow-sm">
+            <div class="p-6 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/80 backdrop-blur-md relative z-10 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors shadow-sm">
                 <h3 class="font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-2">
-                    <div class="p-1.5 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-600"><i class="ph-bold ph-stack"></i></div>
+                    <div class="p-1.5 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400"><i class="ph-bold ph-stack"></i></div>
                     Analisis Kategori Pengeluaran 
                     <span class="badge bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-400 border-amber-300 dark:border-amber-700 ml-2 shadow-sm">PRO</span>
                 </h3>

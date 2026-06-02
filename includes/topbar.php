@@ -31,9 +31,11 @@ $initial = strtoupper(substr($user_name, 0, 1));
             <!-- Badge bisa ditambahkan secara dinamis via JS/PHP -->
         </button>
         
-        <!-- User Avatar -->
-        <div style="width:34px;height:34px;border-radius:50%;background:var(--brand-100);display:flex;align-items:center;justify-content:center;color:var(--brand-600);font-weight:700;font-size:0.875rem;border:2px solid var(--brand-200);">
-            <?php echo $initial; ?>
-        </div>
+        <!-- User Avatar (Clickable to Profile) -->
+        <a href="profile.php" style="text-decoration:none;" title="Profil UMKM">
+            <div style="width:34px;height:34px;border-radius:50%;background:var(--brand-100);display:flex;align-items:center;justify-content:center;color:var(--brand-600);font-weight:700;font-size:0.875rem;border:2px solid var(--brand-200);cursor:pointer;transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                <?php echo $initial; ?>
+            </div>
+        </a>
     </div>
 </header>

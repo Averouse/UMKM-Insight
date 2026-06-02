@@ -77,18 +77,18 @@ include 'includes/sidebar.php';
         </div>
 
         <!-- Filter Bar -->
-        <div class="glass-card animate-pop-in stagger-2 p-6 mb-6 flex flex-wrap gap-4 items-end bg-white/40 dark:bg-slate-800/40 backdrop-blur-md border border-white/60 dark:border-slate-700/60">
+        <div class="card animate-pop-in stagger-2 p-6 mb-6 flex flex-wrap gap-4 items-end bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
             <div class="form-group flex-1 min-w-[150px] mb-0">
                 <label class="form-label text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Periode Mulai</label>
-                <input type="date" class="form-input bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm border-white/80 dark:border-slate-700/80 shadow-inner" value="<?php echo date('Y-m-d', strtotime('-30 days')); ?>">
+                <input type="date" class="form-input bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 shadow-inner" value="<?php echo date('Y-m-d', strtotime('-30 days')); ?>">
             </div>
             <div class="form-group flex-1 min-w-[150px] mb-0">
                 <label class="form-label text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Periode Akhir</label>
-                <input type="date" class="form-input bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm border-white/80 dark:border-slate-700/80 shadow-inner" value="<?php echo date('Y-m-d'); ?>">
+                <input type="date" class="form-input bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 shadow-inner" value="<?php echo date('Y-m-d'); ?>">
             </div>
             <div class="form-group flex-1 min-w-[150px] mb-0">
                 <label class="form-label text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Tipe Transaksi</label>
-                <select class="form-select bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm border-white/80 dark:border-slate-700/80 shadow-inner">
+                <select class="form-select bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 shadow-inner">
                     <option>Semua Transaksi</option>
                     <option>Penjualan POS</option>
                     <option>Marketplace</option>
@@ -100,44 +100,44 @@ include 'includes/sidebar.php';
         <!-- KPI Row -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
             <!-- TOTAL PENDAPATAN -->
-            <div class="glass-card animate-pop-in stagger-3 p-6 bg-gradient-to-br from-emerald-400 to-teal-600 text-white border-0 shadow-lg shadow-emerald-500/20 relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
-                <div class="absolute -right-8 -top-8 w-32 h-32 bg-white rounded-full mix-blend-overlay opacity-20 group-hover:scale-150 transition-transform duration-500"></div>
+            <div class="card animate-pop-in stagger-3 p-6 bg-gradient-to-br from-emerald-400 to-teal-600 text-white border-0 shadow-lg shadow-emerald-500/20 relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full mix-blend-overlay group-hover:scale-150 transition-transform duration-500 ease-out"></div>
                 <div class="flex justify-between items-center mb-4 relative z-10">
-                    <span class="text-xs font-bold text-emerald-100 uppercase tracking-widest">Total Pendapatan</span>
-                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20 backdrop-blur-md shadow-inner text-white"><i class="ph-fill ph-wallet text-xl"></i></div>
+                    <span class="text-xs font-bold text-white/80 uppercase tracking-widest">Total Pendapatan</span>
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20 text-white shadow-sm backdrop-blur-sm"><i class="ph-fill ph-wallet text-xl"></i></div>
                 </div>
-                <div class="text-3xl font-black tracking-tight relative z-10 drop-shadow-md"><?php echo formatRupiah($totalRevenue); ?></div>
-                <div class="text-[11px] mt-2 font-semibold text-emerald-100 relative z-10 flex items-center gap-1"><i class="ph-bold ph-chart-line-up"></i> Kumulatif</div>
+                <div class="text-3xl font-black text-white tracking-tight relative z-10"><?php echo formatRupiah($totalRevenue); ?></div>
+                <div class="text-[11px] mt-2 font-semibold text-emerald-50 relative z-10 flex items-center gap-1"><i class="ph-bold ph-chart-line-up"></i> Kumulatif</div>
             </div>
 
             <!-- TOTAL TRANSAKSI -->
-            <div class="glass-card animate-pop-in stagger-4 p-6 bg-gradient-to-br from-blue-500 to-indigo-600 text-white border-0 shadow-lg shadow-blue-500/20 relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
-                <div class="absolute -right-8 -top-8 w-32 h-32 bg-white rounded-full mix-blend-overlay opacity-20 group-hover:scale-150 transition-transform duration-500"></div>
+            <div class="card animate-pop-in stagger-4 p-6 bg-gradient-to-br from-blue-400 to-indigo-600 text-white border-0 shadow-lg shadow-blue-500/20 relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full mix-blend-overlay group-hover:scale-150 transition-transform duration-500 ease-out"></div>
                 <div class="flex justify-between items-center mb-4 relative z-10">
-                    <span class="text-xs font-bold text-blue-100 uppercase tracking-widest">Total Transaksi</span>
-                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20 backdrop-blur-md shadow-inner text-white"><i class="ph-fill ph-receipt text-xl"></i></div>
+                    <span class="text-xs font-bold text-white/80 uppercase tracking-widest">Total Transaksi</span>
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20 text-white shadow-sm backdrop-blur-sm"><i class="ph-fill ph-receipt text-xl"></i></div>
                 </div>
-                <div class="text-3xl font-black tracking-tight relative z-10 drop-shadow-md"><?php echo $totalSalesCount; ?> <span class="text-lg font-bold opacity-80">Pesanan</span></div>
-                <div class="text-[11px] mt-2 font-semibold text-blue-100 relative z-10 flex items-center gap-1"><i class="ph-bold ph-clock"></i> Update Hari Ini</div>
+                <div class="text-3xl font-black text-white tracking-tight relative z-10"><?php echo $totalSalesCount; ?> <span class="text-lg font-bold text-white/70">Pesanan</span></div>
+                <div class="text-[11px] mt-2 font-semibold text-blue-50 relative z-10 flex items-center gap-1"><i class="ph-bold ph-clock"></i> Update Hari Ini</div>
             </div>
 
             <!-- RATA-RATA PESANAN -->
-            <div class="glass-card animate-pop-in stagger-5 p-6 bg-gradient-to-br from-amber-400 to-orange-500 text-white border-0 shadow-lg shadow-amber-500/20 relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
-                <div class="absolute -right-8 -top-8 w-32 h-32 bg-white rounded-full mix-blend-overlay opacity-20 group-hover:scale-150 transition-transform duration-500"></div>
+            <div class="card animate-pop-in stagger-5 p-6 bg-gradient-to-br from-amber-400 to-orange-500 text-white border-0 shadow-lg shadow-amber-500/20 relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full mix-blend-overlay group-hover:scale-150 transition-transform duration-500 ease-out"></div>
                 <div class="flex justify-between items-center mb-4 relative z-10">
-                    <span class="text-xs font-bold text-amber-100 uppercase tracking-widest">Rata-rata Pesanan</span>
-                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20 backdrop-blur-md shadow-inner text-white"><i class="ph-fill ph-chart-bar text-xl"></i></div>
+                    <span class="text-xs font-bold text-white/80 uppercase tracking-widest">Rata-rata Pesanan</span>
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20 text-white shadow-sm backdrop-blur-sm"><i class="ph-fill ph-chart-bar text-xl"></i></div>
                 </div>
-                <div class="text-3xl font-black tracking-tight relative z-10 drop-shadow-md"><?php echo formatRupiah($avgOrder); ?></div>
-                <div class="text-[11px] mt-2 font-semibold text-amber-100 relative z-10 flex items-center gap-1"><i class="ph-bold ph-shopping-bag"></i> Per Transaksi</div>
+                <div class="text-3xl font-black text-white tracking-tight relative z-10"><?php echo formatRupiah($avgOrder); ?></div>
+                <div class="text-[11px] mt-2 font-semibold text-amber-50 relative z-10 flex items-center gap-1"><i class="ph-bold ph-shopping-bag"></i> Per Transaksi</div>
             </div>
         </div>
 
         <!-- Main Charts Section -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-            <div class="lg:col-span-2 glass-card animate-pop-in stagger-5 p-6">
+            <div class="lg:col-span-2 card animate-pop-in stagger-5 p-6">
                 <h3 class="font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-2">
-                    <div class="p-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600"><i class="ph-bold ph-chart-line"></i></div>
+                    <div class="p-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400"><i class="ph-bold ph-chart-line"></i></div>
                     Tren Pendapatan 
                     <?php if(!$isPremium): ?>
                         <span class="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded-full ml-2 border border-slate-200 dark:border-slate-700">Terbatas (3 Bulan)</span>
@@ -147,9 +147,9 @@ include 'includes/sidebar.php';
                     <canvas id="chart-sales-main"></canvas>
                 </div>
             </div>
-            <div class="glass-card animate-pop-in stagger-6 p-6 flex flex-col">
+            <div class="card animate-pop-in stagger-6 p-6 flex flex-col">
                 <h3 class="font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-2">
-                    <div class="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-600"><i class="ph-bold ph-chart-pie"></i></div>
+                    <div class="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400"><i class="ph-bold ph-chart-pie"></i></div>
                     Sumber Penjualan
                 </h3>
                 <div style="height: 220px; position: relative;" class="flex-1">
@@ -162,13 +162,13 @@ include 'includes/sidebar.php';
         </div>
 
         <!-- Premium Feature Section -->
-        <div class="glass-card animate-pop-in stagger-6 p-8 mb-6 relative overflow-hidden <?php echo !$isPremium ? 'premium-locked' : ''; ?>">
+        <div class="card animate-pop-in stagger-6 p-8 mb-6 relative overflow-hidden <?php echo !$isPremium ? 'premium-locked' : ''; ?>">
             <!-- Background Glow -->
             <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-amber-500 rounded-full mix-blend-multiply dark:mix-blend-screen opacity-5 dark:opacity-10 pointer-events-none"></div>
 
             <div class="flex justify-between items-center mb-6 relative z-10">
                 <h3 class="text-lg font-bold flex items-center gap-2 text-slate-800 dark:text-white">
-                    <div class="p-2 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 text-white shadow-md"><i class="ph-bold ph-lightning"></i></div>
+                    <div class="p-2 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 shadow-sm"><i class="ph-bold ph-lightning"></i></div>
                     Analisis Pertumbuhan Lanjutan 
                     <span class="badge bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-400 border-amber-300 dark:border-amber-700 ml-2 shadow-sm">PRO</span>
                 </h3>
@@ -206,14 +206,14 @@ include 'includes/sidebar.php';
         </div>
 
         <!-- Transaction List -->
-        <div class="glass-card animate-pop-in stagger-7 overflow-hidden flex flex-col mb-12">
-            <div class="p-5 border-b border-white/40 dark:border-slate-700/40 flex justify-between items-center bg-white/20 dark:bg-slate-800/20 backdrop-blur-md">
+        <div class="card animate-pop-in stagger-7 overflow-hidden flex flex-col mb-12">
+            <div class="p-5 border-b border-slate-100 dark:border-slate-700/60 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50 backdrop-blur-md">
                 <h3 class="text-sm font-bold text-slate-800 dark:text-white">Daftar Transaksi Lengkap</h3>
                 <p class="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Menampilkan <?php echo $isPremium ? 'Seluruh' : '10 Transaksi Terakhir (Free)'; ?></p>
             </div>
             <div class="overflow-x-auto flex-1">
                 <table class="data-table w-full">
-                    <thead class="bg-slate-50/50 dark:bg-slate-800/50 backdrop-blur-sm border-b border-white/50 dark:border-slate-700/50">
+                    <thead class="bg-slate-100/50 dark:bg-slate-900/30 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700">
                         <tr>
                             <th class="text-left font-bold text-slate-500 dark:text-slate-400">ID</th>
                             <th class="text-left font-bold text-slate-500 dark:text-slate-400">Tanggal</th>
@@ -228,7 +228,7 @@ include 'includes/sidebar.php';
                             <tr><td colspan="6" class="text-center py-20 text-slate-400 font-medium">Tidak ada data penjualan ditemukan.</td></tr>
                         <?php else: ?>
                             <?php foreach($salesTransactions as $t): ?>
-                                <tr class="hover:bg-white/60 dark:hover:bg-slate-700/60 transition-colors border-b border-white/30 dark:border-slate-700/30 last:border-0">
+                                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors border-b border-slate-100 dark:border-slate-800 last:border-0">
                                     <td class="font-mono text-[10px] text-slate-500 dark:text-slate-400 font-medium"><?php echo $t['external_id']; ?></td>
                                     <td class="text-xs text-slate-600 dark:text-slate-300 font-medium"><?php echo date('d M Y, H:i', strtotime($t['transaction_date'])); ?></td>
                                     <td class="font-bold text-slate-700 dark:text-slate-200 text-xs flex items-center gap-1.5">

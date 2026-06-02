@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
-    <!-- Tailwind for utilities (optional, matches existing design) -->
+    <!-- Tailwind for utilities -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -28,7 +28,7 @@
                     }
                 }
             }
-        }
+        };
     </script>
     <script>
         // Cek preferensi tema
@@ -45,7 +45,16 @@
                 document.documentElement.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
             }
+            // Explicitly force Tailwind's class update or icon swap if CDN delays
+            document.querySelectorAll('.ph-moon').forEach(el => el.style.display = document.documentElement.classList.contains('dark') ? 'none' : 'block');
+            document.querySelectorAll('.ph-sun').forEach(el => el.style.display = document.documentElement.classList.contains('dark') ? 'block' : 'none');
         }
+        
+        // Initial setup for icons
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.ph-moon').forEach(el => el.style.display = document.documentElement.classList.contains('dark') ? 'none' : 'block');
+            document.querySelectorAll('.ph-sun').forEach(el => el.style.display = document.documentElement.classList.contains('dark') ? 'block' : 'none');
+        });
     </script>
 
     <!-- Custom Shared CSS -->

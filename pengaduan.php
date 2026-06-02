@@ -65,7 +65,7 @@ include 'includes/sidebar.php';
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             <!-- Form -->
-            <div class="glass-card animate-pop-in stagger-3 p-8 relative overflow-hidden group">
+            <div class="card bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 animate-pop-in stagger-3 p-8 relative overflow-hidden group">
                 <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-brand-500 rounded-full mix-blend-multiply dark:mix-blend-screen opacity-5 dark:opacity-10 group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
                 <h2 class="text-xl font-extrabold mb-6 flex items-center gap-2 text-slate-800 dark:text-white relative z-10">
                     <div class="p-1.5 rounded-lg bg-brand-100 dark:bg-brand-900/50 text-brand-600"><i class="ph-bold ph-note-pencil"></i></div>
@@ -88,7 +88,7 @@ include 'includes/sidebar.php';
             </div>
 
             <!-- History -->
-            <div class="glass-card animate-pop-in stagger-4 p-8 flex flex-col relative overflow-hidden group">
+            <div class="card bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 animate-pop-in stagger-4 p-8 flex flex-col relative overflow-hidden group">
                 <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-slate-500 rounded-full mix-blend-multiply dark:mix-blend-screen opacity-5 group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
                 <h2 class="text-xl font-extrabold mb-6 flex items-center gap-2 text-slate-800 dark:text-white relative z-10">
                     <div class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"><i class="ph-bold ph-clock-counter-clockwise"></i></div>

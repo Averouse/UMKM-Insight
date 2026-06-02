@@ -46,15 +46,20 @@ $pageTitle = "Daftar Akun";
 include 'includes/header.php';
 ?>
 
+<script>
+    // Force dark mode specifically for this page to match the login page
+    document.documentElement.classList.add('dark');
+</script>
+
 <style>
-    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow-x: hidden; padding: 40px 0; }
+    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow-x: hidden; padding: 2rem 1rem; box-sizing: border-box; }
 </style>
 
 <!-- Fullscreen animated background -->
 <div class="animated-bg w-full h-full fixed top-0 left-0 -z-10"></div>
 
 <div class="w-full max-w-[560px] px-6 relative z-10 animate-fade-in stagger-1 my-auto">
-    <div class="glass-card p-8 md:p-10 shadow-2xl relative overflow-hidden group">
+    <div class="card bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 p-8 md:p-10 shadow-2xl relative overflow-hidden group">
         
         <!-- Decorative subtle glowing orb inside the card -->
         <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply dark:mix-blend-screen opacity-10 dark:opacity-20 group-hover:scale-125 transition-transform duration-1000 ease-out"></div>

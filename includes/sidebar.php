@@ -34,9 +34,13 @@ $is_premium = ($_SESSION['tier'] ?? 'free') === 'premium';
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="performa-produk.php" class="<?php echo ($activePage == 'performa') ? 'active' : ''; ?>">
+                    <a href="performa-produk.php" class="<?php echo ($activePage == 'performa-produk') ? 'active' : ''; ?>">
                         <i class="ph ph-package"></i> Performa Produk
-                        <?php if(!$is_premium) echo '<span class="premium-tag">PRO</span>'; ?>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="langganan.php" class="<?php echo ($activePage == 'langganan') ? 'active' : ''; ?>">
+                        <i class="ph ph-credit-card"></i> Langganan
                     </a>
                 </li>
                 <li class="nav-item">
@@ -47,13 +51,18 @@ $is_premium = ($_SESSION['tier'] ?? 'free') === 'premium';
 
             <?php elseif($current_role === 'operator'): ?>
                 <li class="nav-item">
-                    <a href="operator.php" class="<?php echo ($activePage == 'operator') ? 'active' : ''; ?>">
-                        <i class="ph ph-lightning"></i> Manajemen Operasional
+                    <a href="operator.php" class="<?php echo ($activePage == 'operator_dashboard') ? 'active' : ''; ?>">
+                        <i class="ph ph-squares-four"></i> Dashboard Operator
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pengaduan-admin.php" class="<?php echo ($activePage == 'pengaduan-admin') ? 'active' : ''; ?>">
-                        <i class="ph ph-chat-circle-text"></i> Tiket Pengaduan
+                    <a href="pengaduan-admin.php" class="<?php echo ($activePage == 'pengaduan_admin') ? 'active' : ''; ?>">
+                        <i class="ph ph-envelope-open"></i> Kelola Pengaduan
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="langganan-admin.php" class="<?php echo ($activePage == 'langganan_admin') ? 'active' : ''; ?>">
+                        <i class="ph ph-check-circle"></i> Verifikasi Tagihan
                     </a>
                 </li>
 

@@ -4,12 +4,9 @@ require_once 'includes/auth.php';
 
 // Jika sudah login, lempar ke dashboard sesuai role
 if (isLoggedIn()) {
-    if ($_SESSION['role'] === 'admin')
-        header("Location: admin.php");
-    elseif ($_SESSION['role'] === 'operator')
-        header("Location: operator.php");
-    else
-        header("Location: dashboard.php");
+    if ($_SESSION['role'] === 'admin') header("Location: admin.php");
+    elseif ($_SESSION['role'] === 'operator') header("Location: operator.php");
+    else header("Location: dashboard.php");
     exit();
 }
 
@@ -35,12 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['tier'] = $user['tier'];
 
             // Redirect sesuai role
-            if ($user['role'] === 'admin')
-                header("Location: admin.php");
-            elseif ($user['role'] === 'operator')
-                header("Location: operator.php");
-            else
-                header("Location: dashboard.php");
+            if ($user['role'] === 'admin') header("Location: admin.php");
+            elseif ($user['role'] === 'operator') header("Location: operator.php");
+            else header("Location: dashboard.php");
             exit();
         } else {
             $error = "Username atau password salah.";
@@ -52,131 +46,200 @@ $pageTitle = "Masuk";
 include 'includes/header.php';
 ?>
 
-<style>
-    body {
-        min-height: 100vh;
-        display: flex;
-    }
+<script>
+    // Force dark mode specifically for this login page as requested by user
+    document.documentElement.classList.add('dark');
+</script>
 
-    .auth-left {
-        flex: 1;
-        background: linear-gradient(135deg, #0f172a 0%, #134e4a 50%, #0d9488 100%);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 48px;
+<style>
+    body { height: 100vh; display: flex; overflow: hidden; margin: 0; }
+
+    /* Removed Theme Switcher in Login to force Dark Mode */
+    /* Left Panel */
+    .auth-left-panel {
+        flex: 1.2;
         position: relative;
         overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 48px;
+        background: linear-gradient(135deg, #0f172a 0%, #0d2a28 40%, #0d4a44 70%, #14b8a6 100%);
+    }
+    .auth-left-panel::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: linear-gradient(135deg, #0f172a 0%, #134e4a 50%, #0d9488 100%);
+        z-index: 0;
     }
 
-    .auth-left-content {
-        position: relative;
-        z-index: 2;
-        max-width: 440px;
-        text-align: center;
-        color: white;
+    /* Animated orbs in left panel */
+    .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(70px);
+        animation: floatBlob 12s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 350px; height: 350px; background: rgba(20,184,166,0.3); top: -80px; left: -80px; animation-delay: 0s; }
+    .orb-2 { width: 280px; height: 280px; background: rgba(99,102,241,0.25); bottom: -60px; right: -60px; animation-delay: -6s; }
+    .orb-3 { width: 180px; height: 180px; background: rgba(245,158,11,0.15); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -3s; }
+
+    /* Floating grid lines */
+    .grid-lines {
+        position: absolute; inset: 0; z-index: 1;
+        background-image:
+            linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
     }
 
+    /* Feature pills */
+    .feature-pill {
+        display: flex; align-items: center; gap: 14px;
+        background: rgba(255,255,255,0.07);
+        border: 1px solid rgba(255,255,255,0.12);
+        backdrop-filter: blur(10px);
+        padding: 14px 18px;
+        border-radius: 16px;
+        transition: all 0.3s ease;
+    }
+    .feature-pill:hover { background: rgba(255,255,255,0.12); transform: translateX(4px); border-color: rgba(255,255,255,0.2); }
+    .feature-pill-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+
+    /* Stat ticker */
+    .stat-ticker {
+        display: flex; gap: 24px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 16px 24px;
+    }
+    .stat-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+
+    /* Right Panel */
     .auth-right-panel {
         flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 48px 24px;
+        padding: 40px 32px;
+        overflow-y: auto;
         background: var(--surface);
         position: relative;
-        overflow: hidden;
+    }
+    .auth-right-panel::before {
+        content: '';
+        position: absolute; inset: 0;
+        background:
+            radial-gradient(ellipse 60% 50% at 80% 20%, rgba(20,184,166,0.08) 0%, transparent 70%),
+            radial-gradient(ellipse 50% 60% at 20% 80%, rgba(99,102,241,0.08) 0%, transparent 70%);
+        pointer-events: none;
     }
 
-    .form-card {
-        width: 100%;
-        max-width: 400px;
-        position: relative;
-        z-index: 10;
-    }
-
-    /* Floating particles background styles */
+    /* ── Floating particles on right panel ── */
     .particle {
         position: absolute;
         border-radius: 50%;
         pointer-events: none;
-        animation: floatParticle var(--dur, 8s) ease-in-out infinite;
-        opacity: var(--op, 0.4);
+        animation: particleDrift var(--dur, 8s) ease-in-out infinite alternate;
+        opacity: 0;
+        animation-fill-mode: both;
     }
-    @keyframes floatParticle {
-        0%, 100% { transform: translate(0, 0); }
-        50% { transform: translate(var(--dx, 20px), var(--dy, -40px)); }
+    @keyframes particleDrift {
+        0%   { transform: translate(0, 0) scale(1); opacity: 0; }
+        20%  { opacity: var(--op, 0.6); }
+        80%  { opacity: var(--op, 0.6); }
+        100% { transform: translate(var(--dx, 30px), var(--dy, -40px)) scale(1.3); opacity: 0; }
     }
 
-    /* Pulsing background rings */
+    /* ── Animated ring behind the form card ── */
     .ring {
         position: absolute;
-        border: 1px solid;
         border-radius: 50%;
-        transform: translate(-50%, -50%);
+        border: 1px solid;
+        animation: ringPulse var(--dur, 4s) ease-in-out infinite;
         pointer-events: none;
-        animation: pulseRing var(--dur, 6s) ease-in-out infinite;
     }
-    @keyframes pulseRing {
-        0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
-        50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.6; }
-    }
-
-    /* Left panel feature pills */
-    .feature-pill {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        padding: 12px 16px;
-        border-radius: var(--radius-lg);
-        text-align: left;
-        transition: all var(--transition-fast);
-        margin-bottom: 4px;
-    }
-    .feature-pill:hover {
-        background: rgba(255, 255, 255, 0.12);
-        transform: translateX(4px);
-    }
-    .feature-pill-icon {
-        width: 36px;
-        height: 36px;
-        border-radius: var(--radius-md);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.125rem;
-        flex-shrink: 0;
+    @keyframes ringPulse {
+        0%, 100% { transform: translate(-50%, -50%) scale(1);   opacity: 0.4; }
+        50%       { transform: translate(-50%, -50%) scale(1.12); opacity: 0.08; }
     }
 
-    /* Bottom stats ticker */
-    .stat-ticker {
-        display: flex;
-        justify-content: space-around;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        padding: 16px;
-        border-radius: var(--radius-xl);
-        margin-top: 24px;
+    /* ── Input shimmer / glow on focus ── */
+    .auth-input {
+        transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
     }
-    .stat-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
+    .auth-input:focus {
+        border-color: #14b8a6 !important;
+        box-shadow: 0 0 0 3px rgba(20,184,166,0.15), 0 0 16px rgba(20,184,166,0.1);
+        background: white !important;
+    }
+    .dark .auth-input:focus {
+        background: #1e293b !important;
+        box-shadow: 0 0 0 3px rgba(20,184,166,0.2), 0 0 20px rgba(20,184,166,0.1);
     }
 
-    @media(max-width:768px) {
-        .auth-left {
-            display: none;
-        }
+    /* ── Submit button pulse ── */
+    .btn-login {
+        position: relative;
+        overflow: hidden;
     }
+    .btn-login::after {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        border-radius: inherit;
+        background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+        transform: translateX(-100%);
+        animation: btnShimmer 3s ease-in-out infinite;
+    }
+    @keyframes btnShimmer {
+        0%   { transform: translateX(-100%); }
+        50%  { transform: translateX(100%); }
+        100% { transform: translateX(100%); }
+    }
+
+    /* ── Typing cursor on heading ── */
+    .typing-cursor::after {
+        content: '|';
+        display: inline-block;
+        margin-left: 2px;
+        animation: blink 1s step-end infinite;
+        color: #14b8a6;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* ── Form card slide-up entry ── */
+    .form-card {
+        animation: slideUpFade 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    @keyframes slideUpFade {
+        from { opacity: 0; transform: translateY(32px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) { .auth-left-panel { display: none; } }
 </style>
 
-<div class="auth-left">
-    <div class="auth-left-content">
+<!-- ============ LEFT PANEL ============ -->
+<div class="auth-left-panel">
+    <!-- Background elements -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-lines"></div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-md w-full text-white animate-fade-in">
+        <!-- Logo -->
+        <div class="flex items-center gap-3 mb-12 animate-pop-in stagger-1">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-400 to-teal-600 flex items-center justify-center shadow-lg pulse-glow">
+                <img src="assets/image/logo_desai.png" alt="Logo UMKM Insight" class="w-8 h-8 object-contain drop-shadow-md">
+            </div>
+            <span class="text-xl font-extrabold tracking-tight">UMKM Insight</span>
+        </div>
+
         <!-- Headline -->
         <div class="mb-10 animate-pop-in stagger-2">
             <h2 class="text-4xl font-black leading-tight tracking-tight mb-4">
@@ -242,20 +305,23 @@ include 'includes/header.php';
 <!-- ============ RIGHT PANEL ============ -->
 <div class="auth-right-panel">
 
-    <!-- Floating particles -->
-    <div class="particle" style="--dur:9s;--dx:40px;--dy:-60px;--op:0.5; width:8px;height:8px;background:#14b8a6; top:20%;left:15%;animation-delay:0s;"></div>
-    <div class="particle" style="--dur:7s;--dx:-30px;--dy:-50px;--op:0.4; width:5px;height:5px;background:#6366f1; top:60%;left:80%;animation-delay:-2s;"></div>
-    <div class="particle" style="--dur:11s;--dx:50px;--dy:-30px;--op:0.5; width:6px;height:6px;background:#f59e0b; top:75%;left:10%;animation-delay:-4s;"></div>
-    <div class="particle" style="--dur:8s;--dx:-40px;--dy:-70px;--op:0.35; width:4px;height:4px;background:#14b8a6; top:30%;left:75%;animation-delay:-1s;"></div>
-    <div class="particle" style="--dur:13s;--dx:20px;--dy:-40px;--op:0.45; width:7px;height:7px;background:#a78bfa; top:85%;left:55%;animation-delay:-6s;"></div>
-    <div class="particle" style="--dur:10s;--dx:-50px;--dy:-20px;--op:0.3; width:5px;height:5px;background:#34d399; top:10%;left:45%;animation-delay:-3s;"></div>
-    <div class="particle" style="--dur:6s;--dx:30px;--dy:-55px;--op:0.5; width:6px;height:6px;background:#f472b6; top:50%;left:30%;animation-delay:-5s;"></div>
-    <div class="particle" style="--dur:12s;--dx:-20px;--dy:-45px;--op:0.4; width:4px;height:4px;background:#38bdf8; top:90%;left:85%;animation-delay:-7s;"></div>
+    <!-- Background Animations Container (Prevents Scrolling) -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <!-- Floating particles -->
+        <div class="particle" style="--dur:9s;--dx:40px;--dy:-60px;--op:0.5; width:8px;height:8px;background:#14b8a6; top:20%;left:15%;animation-delay:0s;"></div>
+        <div class="particle" style="--dur:7s;--dx:-30px;--dy:-50px;--op:0.4; width:5px;height:5px;background:#6366f1; top:60%;left:80%;animation-delay:-2s;"></div>
+        <div class="particle" style="--dur:11s;--dx:50px;--dy:-30px;--op:0.5; width:6px;height:6px;background:#f59e0b; top:75%;left:10%;animation-delay:-4s;"></div>
+        <div class="particle" style="--dur:8s;--dx:-40px;--dy:-70px;--op:0.35; width:4px;height:4px;background:#14b8a6; top:30%;left:75%;animation-delay:-1s;"></div>
+        <div class="particle" style="--dur:13s;--dx:20px;--dy:-40px;--op:0.45; width:7px;height:7px;background:#a78bfa; top:85%;left:55%;animation-delay:-6s;"></div>
+        <div class="particle" style="--dur:10s;--dx:-50px;--dy:-20px;--op:0.3; width:5px;height:5px;background:#34d399; top:10%;left:45%;animation-delay:-3s;"></div>
+        <div class="particle" style="--dur:6s;--dx:30px;--dy:-55px;--op:0.5; width:6px;height:6px;background:#f472b6; top:50%;left:30%;animation-delay:-5s;"></div>
+        <div class="particle" style="--dur:12s;--dx:-20px;--dy:-45px;--op:0.4; width:4px;height:4px;background:#38bdf8; top:90%;left:85%;animation-delay:-7s;"></div>
 
-    <!-- Pulsing rings centered behind the form -->
-    <div class="ring" style="--dur:5s; width:380px;height:380px;border-color:rgba(20,184,166,0.15); top:50%;left:50%;"></div>
-    <div class="ring" style="--dur:7s; width:520px;height:520px;border-color:rgba(99,102,241,0.1);  top:50%;left:50%;animation-delay:-2s;"></div>
-    <div class="ring" style="--dur:9s; width:660px;height:660px;border-color:rgba(245,158,11,0.07); top:50%;left:50%;animation-delay:-4s;"></div>
+        <!-- Pulsing rings centered behind the form -->
+        <div class="ring" style="--dur:5s; width:380px;height:380px;border-color:rgba(20,184,166,0.15); top:50%;left:50%;"></div>
+        <div class="ring" style="--dur:7s; width:520px;height:520px;border-color:rgba(99,102,241,0.1);  top:50%;left:50%;animation-delay:-2s;"></div>
+        <div class="ring" style="--dur:9s; width:660px;height:660px;border-color:rgba(245,158,11,0.07); top:50%;left:50%;animation-delay:-4s;"></div>
+    </div>
 
     <!-- Form card -->
     <div class="w-full max-w-[400px] relative z-10 form-card">
@@ -278,10 +344,9 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <?php if ($error): ?>
-            <div
-                class="bg-rose-50 border border-rose-100 text-rose-600 p-3 rounded-lg text-sm mb-6 flex items-center gap-2">
-                <i class="ph ph-warning-circle"></i> <?php echo $error; ?>
+        <?php if($error): ?>
+            <div class="bg-rose-50 dark:bg-rose-900/50 border border-rose-200 dark:border-rose-800 text-rose-600 dark:text-rose-300 p-3 rounded-xl text-sm mb-6 flex items-center gap-2 animate-pop-in">
+                <i class="ph-fill ph-warning-circle text-lg"></i> <?php echo $error; ?>
             </div>
         <?php endif; ?>
 
@@ -318,7 +383,43 @@ include 'includes/header.php';
         <p class="text-center text-sm text-slate-500 dark:text-slate-400 mt-8 animate-pop-in stagger-5">
             Belum punya akun? <a href="register.php" class="text-brand-600 dark:text-brand-400 font-bold hover:underline">Daftar Gratis →</a>
         </p>
+
+        <div class="mt-6 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50 text-[10px] text-slate-400 leading-relaxed text-center animate-pop-in stagger-6">
+            <strong class="text-slate-500 dark:text-slate-300">DEMO ACCOUNTS:</strong><br>
+            Client: <code>budi</code> / <code>password</code> &nbsp;|&nbsp;
+            client (premium): <code>sari</code> / <code>password</code> &nbsp;|&nbsp;
+            operator: <code>op_jaya</code> / <code>password</code> &nbsp;|&nbsp;
+            Admin: <code>admin_super</code> / <code>password</code> &nbsp;|&nbsp;
+        </div>
     </div>
 </div>
 
+<script>
+// Toggle password visibility
+function togglePw() {
+    const inp = document.getElementById('pw-input');
+    const eye = document.getElementById('pw-eye');
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+    eye.className = inp.type === 'password' ? 'ph ph-eye' : 'ph ph-eye-slash';
+}
+
+// Animate button on submit
+document.querySelector('form').addEventListener('submit', function() {
+    const btn = document.getElementById('login-btn');
+    const icon = document.getElementById('btn-icon');
+    const text = document.getElementById('btn-text');
+    btn.disabled = true;
+    btn.style.opacity = '0.8';
+    icon.className = 'ph ph-circle-notch animate-spin';
+    text.textContent = 'Memverifikasi...';
+});
+
+// Remove typing cursor after 3 seconds
+setTimeout(() => {
+    const h1 = document.querySelector('.typing-cursor');
+    if (h1) h1.classList.remove('typing-cursor');
+}, 3500);
+</script>
+
 <?php include 'includes/footer.php'; ?>
+
