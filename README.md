@@ -64,6 +64,6 @@ Anda dapat mencoba sistem dengan akun berikut:
 - `/controllers`: Logika pemrosesan data.
 - `/dokumentasi`: Skema database, perencanaan, dan panduan simulasi.
 - `/includes`: Komponen UI yang dapat digunakan kembali (Header, Sidebar, Footer).
-- `/Archives`: File prototype HTML asli sebelum migrasi ke PHP.
+- `/Archives`: File prototype HTML asli sebelum migrasi ke PHP Native.
 
 ---
