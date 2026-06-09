@@ -14,12 +14,13 @@ $activePage = 'performa-produk';
 
 // 1. Fetch user's local product performance (from WarungPOS via transaction_cache)
 $stmt = $pdo->prepare("
-    SELECT description as product_name, 
-           COUNT(*) as total_sold, 
-           SUM(amount) as total_revenue
-    FROM transaction_cache 
-    WHERE user_id = ? AND source = 'WarungPOS' AND description IS NOT NULL AND description != ''
-    GROUP BY description
+    SELECT p.nama_produk as product_name, 
+           COUNT(tc.id) as total_sold, 
+           SUM(tc.amount) as total_revenue
+    FROM transaction_cache tc
+    JOIN products p ON tc.product_id = p.id
+    WHERE tc.user_id = ? AND tc.source = 'WarungPOS'
+    GROUP BY p.nama_produk
     ORDER BY total_sold DESC
 ");
 $stmt->execute([$userId]);
@@ -236,7 +237,7 @@ include 'includes/sidebar.php';
             </div>
 
             <?php if(!$isPremium): ?>
-                <div class="premium-lock-badge" onclick="window.location.href='landing.php#harga'">
+                <div class="premium-lock-badge" onclick="window.location.href='langganan.php'">
                     <i class="ph-fill ph-crown text-2xl mb-2"></i>
                     <span class="font-bold">Buka Wawasan Produk Lanjutan</span>
                 </div>

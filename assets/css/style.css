@@ -157,7 +157,8 @@ body {
     gap: 8px;
 }
 .toast {
-    background: white;
+    background: var(--card);
+    color: var(--text-primary);
     border-radius: var(--radius-lg);
     padding: 14px 20px;
     box-shadow: var(--shadow-xl);
@@ -173,6 +174,32 @@ body {
 .toast.toast-warning { border-left-color: var(--warning); }
 .toast.toast-error { border-left-color: var(--error); }
 .toast.toast-info { border-left-color: var(--info); }
+
+.dark .toast {
+    background: #1e293b;
+    color: #e2e8f0;
+    border: 1px solid #334155;
+}
+.dark .toast.toast-error {
+    background: #3b1a1a;
+    color: #fecaca;
+    border-color: #7f1d1d;
+}
+.dark .toast.toast-success {
+    background: #14352a;
+    color: #bbf7d0;
+    border-color: #166534;
+}
+.dark .toast.toast-warning {
+    background: #3b2e10;
+    color: #fde68a;
+    border-color: #92400e;
+}
+.dark .toast.toast-info {
+    background: #1a2744;
+    color: #bfdbfe;
+    border-color: #1e40af;
+}
 
 /* ========== SIDEBAR & TOPBAR ========== */
 .app-sidebar {
