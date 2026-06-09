@@ -1,54 +1,110 @@
-digraph AlgoritmaGreedyBundling {
-    // Pengaturan gaya grafik
-    node [fontname="Helvetica,Arial,sans-serif", shape=box, style="rounded,filled", fillcolor="#f8fafc", color="#cbd5e1"];
-    edge [fontname="Helvetica,Arial,sans-serif", fontsize=10, color="#64748b"];
-    
-    // Node Start dan End
-    Start [shape=oval, fillcolor="#10b981", color="#059669", fontcolor=white, label="Mulai Engine Analitik"];
-    End [shape=oval, fillcolor="#f43f5e", color="#e11d48", fontcolor=white, label="Cetak Insight Bundling ke Layar\n(Selesai)"];
-    EndBatal [shape=oval, fillcolor="#94a3b8", color="#475569", fontcolor=white, label="Batal\n(Selesai)"];
+```dot
+digraph UMKM_Insight_Workflow {
+    // Pengaturan Umum Graf
+    graph [fontname="Helvetica,Arial,sans-serif", fontsize=12, rankdir=TB, nodesep=0.5, ranksep=0.8, splines=polyline];
+    node [fontname="Helvetica,Arial,sans-serif", fontsize=11, shape=box, style="rounded,filled", color="#cccccc", fillcolor="#ffffff"];
+    edge [fontname="Helvetica,Arial,sans-serif", fontsize=10, color="#666666"];
 
-    // Data Pipeline
-    LoadData [label="Tarik Dataset Produk\n(Data: Stok & Total Terjual)"];
-    HitungRasio [label="Hitung Rasio 'Barang Mati'\n(Rumus: Stok / Total Terjual)"];
+    // Aktor / Entri Awal
+    Start [shape=oval, fillcolor="#4CAF50", fontcolor="white", label="Start"];
     
-    CekJumlah [shape=diamond, fillcolor="#bae6fd", color="#0284c7", label="Apakah jumlah jenis\nproduk >= 2?"];
+    // Autentikasi
+    subgraph cluster_auth {
+        label="Autentikasi";
+        style="dashed,rounded";
+        color="#2196F3";
+        fontcolor="#2196F3";
+        Register [label="Register\n(register.php)"];
+        Login [label="Login\n(login.php)"];
+        Logout [label="Logout\n(logout.php)"];
+    }
 
-    // Proses Inti Greedy (Sorting)
-    SortDeadStock [fillcolor="#fef08a", color="#ca8a04", label="GREEDY SORT 1:\nUrutkan Daftar A (Dead Stock)\nberdasarkan Rasio Tertinggi ke Terendah"];
-    SortBestSeller [fillcolor="#fef08a", color="#ca8a04", label="GREEDY SORT 2:\nUrutkan Daftar B (Best Seller)\nberdasarkan Penjualan Tertinggi ke Terendah"];
-    
-    // Proses Inti Greedy (Selection)
-    AmbilDeadStock [fillcolor="#bbf7d0", color="#16a34a", label="GREEDY SELECT 1:\nAmbil Produk Paling Mati (Rank #1 Daftar A)"];
-    AmbilBestSeller [fillcolor="#bbf7d0", color="#16a34a", label="GREEDY SELECT 2:\nAmbil Produk Paling Laris (Rank #1 Daftar B)"];
-    
-    CekSama [shape=diamond, fillcolor="#bae6fd", color="#0284c7", label="Apakah Produk #1 Daftar A\nSAMA DENGAN\nProduk #1 Daftar B?"];
-    
-    AmbilBestSeller2 [fillcolor="#fed7aa", color="#ea580c", label="Ambil Produk Laris Rank #2\n(Mencegah bundling produk yang sama)"];
-    
-    // Pemasangan (Pairing)
-    BuatBundling [fillcolor="#c084fc", color="#7e22ce", fontcolor=white, label="PROSES BUNDLING:\nGabungkan Produk Mati + Produk Laris"];
+    // Role Distribution
+    RoleCheck [shape=diamond, fillcolor="#FFC107", style=filled, label="Pengecekan\nRole"];
 
-    // Alur Garis
-    Start -> LoadData;
-    LoadData -> HitungRasio;
-    HitungRasio -> CekJumlah;
+    // Client Workflow
+    subgraph cluster_client {
+        label="Area Client (UMKM)";
+        style="solid,rounded";
+        color="#9C27B0";
+        fontcolor="#9C27B0";
+        bgcolor="#fdf6fe";
+        
+        DashboardClient [label="Dashboard Analytics\n(index.php / dashboard.php)"];
+        
+        LaporanPenjualan [label="Laporan Penjualan\n(laporan-penjualan.php)"];
+        ArusKas [label="Manajemen Arus Kas\n(arus-kas.php)"];
+        PerformaProduk [label="Performa Produk\n(performa-produk.php)"];
+        
+        Langganan [label="Langganan / Tier\n(langganan.php)"];
+        Pembayaran [label="Pembayaran / Upgrade\n(pembayaran.php)"];
+        
+        Pengaduan [label="Pengaduan / Bantuan\n(pengaduan.php)"];
+        Profile [label="Profile Pengguna\n(profile.php)"];
+    }
+
+    // Operator Workflow
+    subgraph cluster_operator {
+        label="Area Operator";
+        style="solid,rounded";
+        color="#FF9800";
+        fontcolor="#FF9800";
+        bgcolor="#fffbf5";
+        
+        DashboardOperator [label="Operator Dashboard\n(operator.php)"];
+    }
+
+    // Admin Workflow
+    subgraph cluster_admin {
+        label="Area Admin";
+        style="solid,rounded";
+        color="#F44336";
+        fontcolor="#F44336";
+        bgcolor="#fef6f6";
+        
+        DashboardAdmin [label="Admin Dashboard\n(admin.php)"];
+        SystemConfig [label="System Config\n(system-config.php)"];
+        AuditLogs [label="Audit Logs\n(audit-logs.php)"];
+        LanggananAdmin [label="Kelola Langganan\n(langganan-admin.php)"];
+        PengaduanAdmin [label="Kelola Pengaduan\n(pengaduan-admin.php)"];
+    }
+
+    // Alur Logika (Flow)
+    Start -> Login [label="Sudah Punya Akun?"];
+    Start -> Register [label="Belum Punya Akun?"];
+    Register -> Login [label="Berhasil Daftar"];
     
-    CekJumlah -> EndBatal [label="Tidak (Data Kurang)"];
-    CekJumlah -> SortDeadStock [label="Ya (Cukup)"];
+    Login -> RoleCheck [label="Submit Credentials"];
     
-    SortDeadStock -> SortBestSeller;
-    SortBestSeller -> AmbilDeadStock;
-    AmbilDeadStock -> AmbilBestSeller;
+    // Autentikasi ke Role
+    RoleCheck -> DashboardClient [label="Role: Client", color="#9C27B0", fontcolor="#9C27B0"];
+    RoleCheck -> DashboardOperator [label="Role: Operator", color="#FF9800", fontcolor="#FF9800"];
+    RoleCheck -> DashboardAdmin [label="Role: Admin", color="#F44336", fontcolor="#F44336"];
     
-    AmbilBestSeller -> CekSama;
+    // Navigasi Client
+    DashboardClient -> LaporanPenjualan;
+    DashboardClient -> ArusKas;
+    DashboardClient -> PerformaProduk;
+    DashboardClient -> Langganan;
+    DashboardClient -> Pengaduan;
+    DashboardClient -> Profile;
     
-    CekSama -> BuatBundling [label="Tidak (Aman)"];
-    CekSama -> AmbilBestSeller2 [label="Ya (Produk Sama)"];
+    Langganan -> Pembayaran [label="Proses Upgrade Tier"];
     
-    AmbilBestSeller2 -> BuatBundling;
+    // Interaksi Operator & Admin (garis putus-putus menggambarkan relasi data/proses)
+    DashboardOperator -> Pengaduan [style=dashed, color="#FF9800", label="Tindak Lanjut Tiket"];
+    DashboardOperator -> Pembayaran [style=dashed, color="#FF9800", label="Verifikasi Pembayaran"];
     
-    BuatBundling -> End;
+    // Navigasi Admin
+    DashboardAdmin -> SystemConfig;
+    DashboardAdmin -> AuditLogs;
+    DashboardAdmin -> LanggananAdmin;
+    DashboardAdmin -> PengaduanAdmin;
+    
+    // Alur Logout
+    DashboardClient -> Logout;
+    DashboardOperator -> Logout;
+    DashboardAdmin -> Logout;
+    Logout -> Login;
 }
-
-\
+```

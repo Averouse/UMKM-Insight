@@ -256,6 +256,7 @@ include 'includes/sidebar.php';
         const isPremium = <?php echo $isPremium ? 'true' : 'false'; ?>;
         const comparisonData = <?php echo json_encode($comparisonData); ?>;
         const globalTrends = <?php echo json_encode($globalTrends); ?>;
+        const allProducts = <?php echo json_encode($allProducts); ?>;
         
         Chart.defaults.font.family = "'Inter', sans-serif";
         Chart.defaults.color = document.documentElement.classList.contains('dark') ? '#94a3b8' : '#64748b';
@@ -358,6 +359,43 @@ include 'includes/sidebar.php';
             // --- Smart Insights ---
             const insights = [];
             
+            // --- GREEDY ALGORITHM: OPTIMALISASI BUNDLING CUCI GUDANG ---
+            if (allProducts && allProducts.length >= 2) {
+                // 1. Data Pipeline & Perhitungan Rasio
+                const productsData = allProducts.map(p => ({
+                    name: p.nama_produk,
+                    stock: parseInt(p.stok) || 0,
+                    sold: parseInt(p.total_sold) || 0,
+                    // Hitung rasio kemandekan: stok tinggi dibagi penjualan rendah
+                    // Jika penjualan 0, berikan bobot penalti sangat tinggi
+                    ratio: (parseInt(p.total_sold) || 0) === 0 ? (parseInt(p.stok) || 0) * 1000 : (parseInt(p.stok) || 0) / parseInt(p.total_sold)
+                }));
+
+                // 2. Greedy Sort 1: Daftar A (Dead Stock / Kemandekan tertinggi)
+                const deadStockList = [...productsData].sort((a, b) => b.ratio - a.ratio);
+                
+                // 3. Greedy Sort 2: Daftar B (Best Seller / Penjualan tertinggi)
+                const bestSellerList = [...productsData].sort((a, b) => b.sold - a.sold);
+
+                // 4. Greedy Select: Ambil ujung tombak masing-masing daftar
+                let topDead = deadStockList[0];
+                let topBest = bestSellerList[0];
+
+                // 5. Cek Kesamaan (Cegah bundling produk yang sama)
+                if (topDead.name === topBest.name && bestSellerList.length > 1) {
+                    topBest = bestSellerList[1];
+                }
+
+                // 6. Buat Rekomendasi (Proses Bundling)
+                if (topDead.stock > 0 && topDead.ratio > 0 && topBest.sold > 0) {
+                    insights.push({
+                        l: 'Rekomendasi Bundling (Greedy Analysis)',
+                        v: `"${topDead.name}" menumpuk di gudang (Stok: ${topDead.stock}). Gabungkan dengan "${topBest.name}" (Terlaris: ${topBest.sold} terjual) sebagai paket diskon cuci gudang!`,
+                        c: 'text-purple-600', bg: 'bg-purple-100 dark:bg-purple-900/50', i: 'ph-gift'
+                    });
+                }
+            }
+
             // Find products where local matches global trend
             comparisonData.forEach(item => {
                 if (item.has_match && item.global_sold > 0) {
