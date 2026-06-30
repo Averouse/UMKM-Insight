@@ -14,6 +14,17 @@ UMKM Insight adalah platform berbasis web yang membantu pelaku UMKM memantau per
 - **Multi-Role Access**: Admin, Operator, dan Client (UMKM).
 - **Dark/Light Mode**: Tema gelap dan terang yang dapat diubah secara global di seluruh halaman.
 
+## 🧠 Penerapan Algoritma Greedy
+
+Aplikasi ini menerapkan **Algoritma Greedy** pada halaman **Performa Produk**, tepatnya pada fitur analisis **Optimalisasi Bundling Cuci Gudang**. Algoritma ini digunakan untuk memecahkan masalah optimasi penjualan stok barang yang menumpuk (*dead stock*). 
+
+Cara kerja algoritma ini secara *real-time* adalah:
+1. Mengurutkan daftar produk dari yang penjualannya paling mandek.
+2. Mengurutkan daftar produk dari yang paling laris (*best seller*).
+3. Melakukan *Greedy Select* dengan langsung memasangkan produk paling mandek dengan produk paling laris saat itu juga. 
+
+Tujuannya adalah untuk memaksimalkan peluang terjualnya barang yang tidak laku dengan mendompleng popularitas produk yang paling diminati. Metode ini sangat efisien dan cepat diproses oleh sistem, sehingga menghasilkan rekomendasi *bundling* praktis yang siap dieksekusi oleh pelaku UMKM.
+
 ## 🛠️ Tech Stack
 
 - **Backend**: PHP 8.x (Native, tanpa framework)
